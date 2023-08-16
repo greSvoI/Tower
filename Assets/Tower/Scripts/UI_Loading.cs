@@ -37,7 +37,7 @@ namespace CubeSurfer
 			_highScore = PlayerPrefs.GetInt("_highScore");
 
 			textHighScore.text = $"Highscore : " + _highScore.ToString();
-			EventManager.EventGameOver += OnEventGameOver;
+			//EventManager.EventGameOver += OnEventGameOver;
 		}
 
 
@@ -96,7 +96,7 @@ namespace CubeSurfer
 		}
 		private void OnDestroy()
 		{
-			EventManager.EventGameOver -= OnEventGameOver;
+			//EventManager.EventGameOver -= OnEventGameOver;
 		}
 
 	}

@@ -34,7 +34,7 @@ namespace CubeSurfer
 		}
 		private void OutputEventPosition(Vector2 newPosition)
 		{
-			EventManager.EventInput?.Invoke(newPosition);
+			//EventManager.EventInput?.Invoke(newPosition);
 		}
 		private Vector2 ClampValuesToMagnitude(Vector2 position)
 		{
