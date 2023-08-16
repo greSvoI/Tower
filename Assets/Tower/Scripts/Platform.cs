@@ -1,21 +1,17 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.Experimental.GlobalIllumination;
 
-namespace Tower
+namespace TowerDestroy
 {
 	public class Platform : MonoBehaviour
 	{
 	
 		[SerializeField] private GameObject platform;
-		[SerializeField] private GameObject destroy;
 		[SerializeField] private GameObject[] destroyPlatforms;
+
 		[Header("RigidBody Component")]
 		[SerializeField] private float _radius;
 		[SerializeField] private float _force;
+
 
 		public int _totalJump = 0;
 		public bool _forces = false;
@@ -31,18 +27,11 @@ namespace Tower
 				}
 				if(_totalJump == 3)
 				{
-
+					AddForce();
 				}
 			}
 		}
-		private void Update()
-		{
-			if(_forces)
-			{
-				Force();
-			}
-		}
-		public void Force()
+		public void AddForce()
 		{
 			foreach(GameObject go in destroyPlatforms)
 			{
