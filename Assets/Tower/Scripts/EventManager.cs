@@ -2,7 +2,7 @@ using System;
 using UnityEngine;
 using UnityEngine.Events;
 
-namespace CubeSurfer
+namespace TowerDestroy
 {
 	public class EventManager : MonoBehaviour
 	{

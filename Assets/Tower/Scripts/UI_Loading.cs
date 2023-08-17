@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-namespace CubeSurfer
+namespace TowerDestroy
 {
 	public class UI_Loading : MonoBehaviour
 	{

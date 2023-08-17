@@ -2,20 +2,14 @@ using System.Collections;
 using TMPro;
 using UnityEngine;
 
-namespace CubeSurfer
+namespace TowerDestroy
 {
 	public class CameraController : MonoBehaviour
 	{
 		[SerializeField] private Transform playerTransform;
-		[SerializeField] private Transform mouseTransform;
-		[SerializeField] private Transform targetTransform;
 		[SerializeField] private Transform cameraTransformPos;
 
-		private Vector3 newPosition;
-		private Vector3 targetOffset;
-
 		[Header("Offset camera state")]
-		[SerializeField] private Vector3 offsetMouse;
 		[SerializeField] private Vector3 offsetPlayer;
 		[SerializeField] private float _lerpValue;
 
@@ -29,25 +23,9 @@ namespace CubeSurfer
 
 		void Start()
 		{
-			EventManager.EventGameOver += OnGameOver;
-			targetOffset = offsetPlayer;
+			 offsetPlayer = cameraTransformPos.position - playerTransform.position;
 		}
 
-		private void OnEventLostCube()
-		{
-			StartCoroutine(Shake(_duration, _magnitude));
-		}
-
-		private void OnGameOver(int score)
-		{
-			targetOffset = offsetMouse;
-		}
-		private void Update()
-		{
-			targetTransform = playerTransform;
-			//RenderSettings.skybox.SetFloat("_Rotation", Time.time * _rotateSpeedSky);
-
-		}
 		
 		void LateUpdate()
 		{
@@ -56,13 +34,8 @@ namespace CubeSurfer
 
 		private void SetCameraFollow()
 		{
-			newPosition = Vector3.Lerp(cameraTransformPos.position, new Vector3(0f, targetTransform.position.y, targetTransform.position.z) + targetOffset, _lerpValue * Time.deltaTime);
-			cameraTransformPos.position = newPosition;
-		}
-		private void OnDestroy()
-		{
-
-			EventManager.EventGameOver -= OnGameOver;
+			cameraTransformPos.position = Vector3.Lerp(cameraTransformPos.position, new Vector3(playerTransform.position.x, playerTransform.position.y, playerTransform.position.z) + offsetPlayer, _lerpValue * Time.deltaTime);
+			
 		}
 		private IEnumerator Shake(float duration, float magnitude)
 		{

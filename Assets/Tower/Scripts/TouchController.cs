@@ -1,11 +1,11 @@
-using CubeSurfer;
+using TowerDestroy;
 using System;
 using System.Runtime.InteropServices;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UIElements;
 
-namespace CubeSurfer
+namespace TowerDestroy
 {
 	public class TouchController : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IDragHandler
 	{
@@ -20,12 +20,15 @@ namespace CubeSurfer
 		{
 			clampedPosition = ClampValuesToMagnitude(eventData.delta);
 			OutputEventPosition(clampedPosition);
+
 		}
 
 		public void OnPointerDown(PointerEventData eventData)
 		{
 			clampedPosition.x =	_screenWidth / 2 < eventData.position.x ? 1 : -1;
 			OutputEventPosition(clampedPosition);
+			
+
 		}
 		public void OnPointerUp(PointerEventData eventData)
 		{
@@ -34,7 +37,7 @@ namespace CubeSurfer
 		}
 		private void OutputEventPosition(Vector2 newPosition)
 		{
-			//EventManager.EventInput?.Invoke(newPosition);
+			EventManager.EventInput?.Invoke(newPosition);
 		}
 		private Vector2 ClampValuesToMagnitude(Vector2 position)
 		{
