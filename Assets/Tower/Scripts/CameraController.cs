@@ -21,15 +21,11 @@ namespace TowerDestroy
 		[SerializeField] private float _rotateSpeedSky = 1f;
 		[SerializeField] private Material _sky;
 
-		void Start()
-		{
-			 offsetPlayer = cameraTransformPos.position - playerTransform.position;
-		}
 
 		
 		void LateUpdate()
 		{
-			SetCameraFollow();
+			//SetCameraFollow();
 		}
 
 		private void SetCameraFollow()
