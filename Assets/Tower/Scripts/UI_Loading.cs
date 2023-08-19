@@ -23,7 +23,7 @@ namespace TowerDestroy
 		[SerializeField] private Slider musicVolume;
 
 		private bool _vibration = true;
-		private int _highScore;
+		private float _highScore;
 
 		AsyncOperation asyncSceneLoad;
 		private void Start()
@@ -31,20 +31,21 @@ namespace TowerDestroy
 			if (SceneManager.GetActiveScene().name == "Menu") 
 				StartCoroutine("AsyncLoadScene", PlayerPrefs.GetString("current_scene"));
 
-			if (PlayerPrefs.GetInt("_highScore") <= _highScore)
-				PlayerPrefs.SetInt("_highScore", _highScore);
+			if (PlayerPrefs.GetFloat("_highTime") <= _highScore)
+				PlayerPrefs.SetFloat("_highTime", _highScore);
 
-			_highScore = PlayerPrefs.GetInt("_highScore");
+			_highScore = PlayerPrefs.GetFloat("_highTime");
 
-			textHighScore.text = $"Highscore : " + _highScore.ToString();
-			//EventManager.EventGameOver += OnEventGameOver;
+			textHighScore.text = $"HighTime : " + _highScore.ToString();
+			EventManager.EventGameOver += OnEventGameOver;
+			EventManager.EventWinGame += OnEventGameOver;
 		}
 
 
-		private void OnEventGameOver(int score)
+		private void OnEventGameOver(float score)
 		{
 			if (score > _highScore)
-				PlayerPrefs.SetInt("_highScore", score);
+				PlayerPrefs.SetFloat("_highTime", score);
 			buttonPressRestart.SetActive(true);
 		}
 
@@ -96,7 +97,8 @@ namespace TowerDestroy
 		}
 		private void OnDestroy()
 		{
-			//EventManager.EventGameOver -= OnEventGameOver;
+			EventManager.EventGameOver -= OnEventGameOver;
+			EventManager.EventWinGame -= OnEventGameOver;
 		}
 
 	}

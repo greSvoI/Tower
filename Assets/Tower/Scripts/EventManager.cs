@@ -13,7 +13,9 @@ namespace TowerDestroy
 				instance = this;
 		}
 		public static Action<Vector2> EventInput { get;set; }
-		public static Action<int> EventGameOver { get; set; }	
+		public static Action<float> EventGameOver { get; set; }
+		public static Action<float> EventWinGame { get; set; }
+		public static Action<BallData> EventUpdateBall { get; set; }
 
 	}
 }

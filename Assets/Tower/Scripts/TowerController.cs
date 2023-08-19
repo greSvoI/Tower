@@ -7,13 +7,16 @@ namespace TowerDestroy
 	public class TowerController : MonoBehaviour
 	{
 		[SerializeField] private Tower towerPrefab;
+		[SerializeField] private BallController ball;
 		[SerializeField] private Vector2 _direction;
 		[SerializeField] private float _rotationSpeed = 0.5f;
-		[SerializeField] private float _angle = 0;
 
+		private void Awake()
+		{
+			GameObject tower = Instantiate(towerPrefab.gameObject, Vector3.zero, Quaternion.identity, transform);
+		}
 		private void Start()
 		{
-			Instantiate(towerPrefab, Vector3.zero, Quaternion.identity,transform);
 			EventManager.EventInput += OnEventInput;
 		}
 

@@ -1,0 +1,17 @@
+fileFormatVersion: 2
+guid: 243b4ff989746d648aa7f3da35ad69e0
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - platform: {instanceID: 0}
+  - destroyPlatform: {instanceID: 0}
+  - colliderConvex: {instanceID: 0}
+  - blockPart: {fileID: 2100000, guid: d4217c636302d7e43a41cd72dec79851, type: 2}
+  - crackPlatform: {fileID: 2100000, guid: cbbf9a1e8a5b5d544a29beaee1735d88, type: 2}
+  - lastJumpPlatform: {fileID: 2100000, guid: f3ca9c30f03ec4646bae60eefe2d48ad, type: 2}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
