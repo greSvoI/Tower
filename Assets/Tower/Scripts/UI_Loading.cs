@@ -37,14 +37,22 @@ namespace TowerDestroy
 			_highScore = PlayerPrefs.GetFloat("_highTime");
 
 			textHighScore.text = $"HighTime : " + _highScore.ToString();
-			EventManager.EventGameOver += OnEventGameOver;
-			EventManager.EventWinGame += OnEventGameOver;
+			EventManager.EventGameOver += OnGameOver;
+			EventManager.EventWinGame += OnGameOver;
+			EventManager.EventDestroyPlatform += OnDestroyPlatform;
 		}
 
-
-		private void OnEventGameOver(float score)
+		private void OnDestroyPlatform()
 		{
-			if (score > _highScore)
+			if(_vibration)
+			{
+				Handheld.Vibrate();
+			}
+		}
+
+		private void OnGameOver(float score)
+		{
+			if (score < _highScore)
 				PlayerPrefs.SetFloat("_highTime", score);
 			buttonPressRestart.SetActive(true);
 		}
@@ -97,8 +105,8 @@ namespace TowerDestroy
 		}
 		private void OnDestroy()
 		{
-			EventManager.EventGameOver -= OnEventGameOver;
-			EventManager.EventWinGame -= OnEventGameOver;
+			EventManager.EventGameOver -= OnGameOver;
+			EventManager.EventWinGame -= OnGameOver;
 		}
 
 	}

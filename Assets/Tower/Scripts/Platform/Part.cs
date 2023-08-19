@@ -33,6 +33,7 @@ namespace TowerDestroy
 			//		}
 			//}
 		}
+
 		public void DisablePart(Material material)
 		{
 			MeshCollider[] meshCollider = GetComponents<MeshCollider>();

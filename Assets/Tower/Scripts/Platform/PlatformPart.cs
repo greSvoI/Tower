@@ -21,15 +21,15 @@ namespace TowerDestroy
 
 		[Header("Healt PlatformPart")]
 		[SerializeField] int _health = 100;
-		
 
+		[Header("Audio Component")]
+		[SerializeField] private AudioClip destroyClip;
 		private void Start()
 		{
 			if(platform == null)
 			{
 				platform = GetComponent<GameObject>();
 			}
-			
 		}
 		
 		public void TriggerPart(int strenght)
@@ -52,7 +52,9 @@ namespace TowerDestroy
 
 		public void DestroyPlatform()
 		{
+			
 			destroyPlatform.SetActive(true);
+			EventManager.EventDestroyPlatform?.Invoke();
 			foreach (GameObject item in destroyPlatforms)
 			{
 				if(item.TryGetComponent(out Rigidbody rb))

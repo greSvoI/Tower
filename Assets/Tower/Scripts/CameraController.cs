@@ -31,7 +31,6 @@ namespace TowerDestroy
 		}
 		private void Update()
 		{
-
 			RenderSettings.skybox.SetFloat("_Rotation", Time.time * 2f);
 		}
 		void LateUpdate()
@@ -39,6 +38,10 @@ namespace TowerDestroy
 			if(ball.position.y > _minBallPosition.y)
 			{
 				//TrackBall();
+				_minBallPosition = ball.position;
+			}
+			if(ball.position.y < _minBallPosition.y - 1)
+			{
 				_minBallPosition = ball.position;
 			}
 			transform.position = Vector3.Lerp(transform.position, new Vector3(_minBallPosition.x, _minBallPosition.y, _minBallPosition.z) + _directionOffset, _lerpValue * Time.deltaTime);

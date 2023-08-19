@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace TowerDestroy
 {
@@ -8,6 +9,7 @@ namespace TowerDestroy
 	{
 		[SerializeField] private Tower towerPrefab;
 		[SerializeField] private BallController ball;
+		[SerializeField] private Slider slider;
 		[SerializeField] private Vector2 _direction;
 		[SerializeField] private float _rotationSpeed = 0.5f;
 
@@ -28,11 +30,15 @@ namespace TowerDestroy
 		private void Update()
 		{
 			if (_direction != Vector2.zero)
-				transform.rotation = transform.rotation * Quaternion.Euler(0f, -_direction.x * _rotationSpeed * Time.deltaTime, 0f);
+				transform.rotation = transform.rotation * Quaternion.Euler(0f, -_direction.x * _rotationSpeed, 0f);
 		}
 		private void OnDestroy()
 		{
 			EventManager.EventInput -= OnEventInput;
+		}
+		public void Sensivity()
+		{		
+			_rotationSpeed = slider.value;
 		}
 	}
 }

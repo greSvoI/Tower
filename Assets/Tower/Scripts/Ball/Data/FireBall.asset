@@ -16,4 +16,4 @@ MonoBehaviour:
   effect: {fileID: 0}
   _strength: 200
   _time: 5
-  _force: 30
+  _force: 7

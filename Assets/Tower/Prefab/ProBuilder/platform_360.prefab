@@ -105,6 +105,7 @@ MonoBehaviour:
   _radius: 50
   _force: 100
   _health: 100
+  destroyClip: {fileID: 8300000, guid: ac867fca57cd06c47b1a56654bef23e9, type: 3}
 --- !u!1 &430510151540174066
 GameObject:
   m_ObjectHideFlags: 0
@@ -12342,6 +12343,7 @@ MonoBehaviour:
   _radius: 50
   _force: 100
   _health: 100
+  destroyClip: {fileID: 8300000, guid: ac867fca57cd06c47b1a56654bef23e9, type: 3}
 --- !u!1 &1991763034127735216
 GameObject:
   m_ObjectHideFlags: 0
@@ -24395,6 +24397,7 @@ MonoBehaviour:
   _radius: 50
   _force: 100
   _health: 100
+  destroyClip: {fileID: 8300000, guid: ac867fca57cd06c47b1a56654bef23e9, type: 3}
 --- !u!1 &5884586295312546057
 GameObject:
   m_ObjectHideFlags: 0
@@ -25121,6 +25124,7 @@ MonoBehaviour:
   _radius: 50
   _force: 100
   _health: 100
+  destroyClip: {fileID: 8300000, guid: ac867fca57cd06c47b1a56654bef23e9, type: 3}
 --- !u!1 &5997438338230613726
 GameObject:
   m_ObjectHideFlags: 0
@@ -28051,6 +28055,7 @@ MonoBehaviour:
   _radius: 50
   _force: 100
   _health: 100
+  destroyClip: {fileID: 8300000, guid: ac867fca57cd06c47b1a56654bef23e9, type: 3}
 --- !u!1 &7073406426372767955
 GameObject:
   m_ObjectHideFlags: 0
@@ -33859,6 +33864,7 @@ MonoBehaviour:
   _radius: 50
   _force: 100
   _health: 100
+  destroyClip: {fileID: 8300000, guid: ac867fca57cd06c47b1a56654bef23e9, type: 3}
 --- !u!1 &8608518261351272929
 GameObject:
   m_ObjectHideFlags: 0
@@ -33924,6 +33930,7 @@ MonoBehaviour:
   _radius: 50
   _force: 100
   _health: 100
+  destroyClip: {fileID: 8300000, guid: ac867fca57cd06c47b1a56654bef23e9, type: 3}
 --- !u!1 &8696502408476974032
 GameObject:
   m_ObjectHideFlags: 0
