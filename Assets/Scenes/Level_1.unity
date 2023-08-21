@@ -26,7 +26,7 @@ RenderSettings:
   m_AmbientIntensity: 1
   m_AmbientMode: 0
   m_SubtractiveShadowColor: {r: 0.42, g: 0.478, b: 0.627, a: 1}
-  m_SkyboxMaterial: {fileID: 2100000, guid: 81f714daf7144784b8a2f42f1cd30927, type: 2}
+  m_SkyboxMaterial: {fileID: 2100000, guid: 56113b3b655ab7349bab4d7d405c258a, type: 2}
   m_HaloStrength: 0.5
   m_FlareStrength: 1
   m_FlareFadeSpeed: 3
@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.026969716, g: 0.029026404, b: 0.038806096, a: 1}
+  m_IndirectSpecularColor: {r: 0.23107238, g: 0.6033502, b: 0.98686916, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -148,7 +148,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 231631073, guid: 6d0738fdc6681dd4491eddcb21d3241e, type: 3}
       propertyPath: m_Value
-      value: 1
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 231631073, guid: 6d0738fdc6681dd4491eddcb21d3241e, type: 3}
       propertyPath: m_MaxValue
@@ -630,14 +630,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1021101388}
-  m_LocalRotation: {x: 0, y: -1, z: 0, w: 0}
+  m_LocalRotation: {x: 0, y: -0.9914449, z: 0.13052616, w: 0}
   m_LocalPosition: {x: 0, y: -30.04461, z: 3}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: -180, z: 0}
+  m_LocalEulerAnglesHint: {x: 15, y: -180, z: 0}
 --- !u!114 &1021101392
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -686,7 +686,7 @@ MonoBehaviour:
   ball: {fileID: 3370563725159672586}
   ballMinPosition: {fileID: 3370563725159672586}
   tower: {fileID: 6346780673687927820, guid: fb7283032981c004e82fd9d324bb9443, type: 3}
-  _directionOffset: {x: 0, y: 0.5, z: 3}
+  _directionOffset: {x: 0, y: 1, z: 5}
   _cameraPosition: {x: 0, y: 0, z: 0}
   _minBallPosition: {x: 0, y: 0, z: 0}
   _lerpValue: 2

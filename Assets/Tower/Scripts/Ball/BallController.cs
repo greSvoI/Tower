@@ -50,7 +50,7 @@ namespace TowerDestroy
 		private void OnWinGame(float obj)
 		{
 
-			Debug.Log(Math.Round(_time, 2));
+			Time.timeScale = 0f;
 		}
 
 		private void OnUpdateBall(BallData ball)

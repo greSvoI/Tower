@@ -31,7 +31,7 @@ namespace TowerDestroy
 		}
 		private void Update()
 		{
-			RenderSettings.skybox.SetFloat("_Rotation", Time.time * 2f);
+			//RenderSettings.skybox.SetFloat("_Rotation", Time.time * 2f);
 		}
 		void LateUpdate()
 		{
