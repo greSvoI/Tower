@@ -20,24 +20,24 @@ namespace TowerDestroy
 		[SerializeField] private float _duration;
 		[SerializeField] private float _magnitude;
 
-		[Header("Rotate SkyBox")]
-		//[SerializeField] private float _rotateSpeedSky = 1f;
-		[SerializeField] private Material _sky;
 
 		private void Start()
 		{
 			_cameraPosition = ball.position;
 			_minBallPosition = ball.position;
+
+			EventManager.EventBlockPlatform += OnBlockPlatform;
 		}
-		private void Update()
+
+		private void OnBlockPlatform()
 		{
-			//RenderSettings.skybox.SetFloat("_Rotation", Time.time * 2f);
+			//StartCoroutine(Shake(_duration,_magnitude));
 		}
+
 		void LateUpdate()
 		{
 			if(ball.position.y > _minBallPosition.y)
 			{
-				//TrackBall();
 				_minBallPosition = ball.position;
 			}
 			if(ball.position.y < _minBallPosition.y - 1)
@@ -74,6 +74,11 @@ namespace TowerDestroy
 				yield return null;
 			}
 			this.transform.localPosition = originPos;
+		}
+
+		private void OnDestroy()
+		{
+			EventManager.EventBlockPlatform -= OnBlockPlatform;
 		}
 
 	}

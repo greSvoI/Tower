@@ -24,21 +24,24 @@ namespace TowerDestroy
 
 		[Header("Audio Component")]
 		[SerializeField] private AudioClip destroyClip;
+
+	
+		
 		private void Start()
 		{
 			if(platform == null)
 			{
 				platform = GetComponent<GameObject>();
 			}
-		}
-		
+		}	
 		public void TriggerPart(int strenght)
 		{
-			if(_health<strenght)
+			if(_health<=strenght)
 			{
 				platform.SetActive(false);
 				destroyPlatform.SetActive(true);
 				DestroyPlatform();
+				return;
 			}
 			
 			_health -= strenght;
@@ -53,8 +56,10 @@ namespace TowerDestroy
 		public void DestroyPlatform()
 		{
 			
+			platform.SetActive(false);
 			destroyPlatform.SetActive(true);
-			EventManager.EventDestroyPlatform?.Invoke();
+			EventManager.EventBlockPlatform?.Invoke();
+			destroyPlatform.GetComponentInChildren<ParticleSystem>().Emit(1);
 			foreach (GameObject item in destroyPlatforms)
 			{
 				if(item.TryGetComponent(out Rigidbody rb))
@@ -63,13 +68,6 @@ namespace TowerDestroy
 					rb.AddExplosionForce(_force, transform.position, _radius);
 				}
 			}
-			//StartCoroutine(ShowDestroyPlatforms(2));
-		}
-
-		private IEnumerator ShowDestroyPlatforms(int time)
-		{
-			yield return new WaitForSeconds(time);
-			destroyPlatform.SetActive(false);
 		}
 	}
 }

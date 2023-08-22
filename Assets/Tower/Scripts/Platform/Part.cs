@@ -8,6 +8,7 @@ namespace TowerDestroy
 	public class Part : MonoBehaviour
 	{
 		private PlatformPart part;
+		private bool _isNotDestroy = false;
 		[SerializeField] private LayerMask mask;
 		private void Start()
 		{
@@ -20,22 +21,37 @@ namespace TowerDestroy
 		}
 		private void OnTriggerEnter(Collider other)
 		{
-			part.TriggerPart(other.GetComponent<BallController>().BallStrenght);
+			try
+			{
+				part.TriggerPart(other.GetComponent<BallController>().BallStrenght);
+			}
+			catch (System.Exception)
+			{
+
+				Debug.Log(GetComponentInParent<GameObject>().name);
+			}
 		}
+
 		private void Update()
 		{
-			//if (Physics.SphereCast(transform.position, 0.2f, Vector3.down * 0.5f, out RaycastHit hitInfo,0.5f,mask))
-			//{
-			//	if (hitInfo.collider != null)
-			//		if (hitInfo.collider.gameObject.GetComponent<BallController>().BallStrenght > 100)
-			//		{
-			//			part.DestroyPlatform();
-			//		}
-			//}
+
+			if (Physics.SphereCast(transform.position, 0.2f, Vector3.down * 0.5f, out RaycastHit hitInfo, 0.5f, mask))
+			{
+
+				if (hitInfo.collider != null)
+				{
+					float strenght = hitInfo.collider.gameObject.GetComponent<BallController>().BallStrenght;
+
+					if(strenght >= 100 && !_isNotDestroy || strenght >= 200)
+						part.DestroyPlatform();
+				}
+			}
+
 		}
 
 		public void DisablePart(Material material)
 		{
+			_isNotDestroy = true;
 			MeshCollider[] meshCollider = GetComponents<MeshCollider>();
 			foreach(MeshCollider collider in meshCollider)
 			{

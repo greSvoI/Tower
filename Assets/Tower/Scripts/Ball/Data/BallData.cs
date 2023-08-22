@@ -9,16 +9,16 @@ namespace TowerDestroy
 	public class BallData : ScriptableObject, IBall
 	{
 		[SerializeField] private Material materialBall;
-		[SerializeField] private ParticleSystem effect;
+		[SerializeField] private GameObject effect;
 		[SerializeField] private int _strength;
 		[SerializeField] private float _time;
 		[SerializeField] private float _force;
 
 		public int Strength { get => _strength; }
 		public float Time { get => _time; }
-		public float Force { get => _force; }
+		public float Force { get => _force;}
 		public Material Material { get => materialBall; }
-		public ParticleSystem Effect { get => effect; }	
+		public GameObject Effect { get => effect; }	
 
 	}
 }

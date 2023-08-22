@@ -6,22 +6,16 @@ namespace TowerDestroy
 	public class Tower : MonoBehaviour
 	{
 		[SerializeField] private Platform platformPrefab;
-		[SerializeField] private float _startSpawnY;
+		[SerializeField] private float _startSpawnY= 0;
 		[SerializeField] private float _towerLenght;
 
 		[SerializeField] private List<BallDetection> ballDetections;
 
-		private void Start()
-		{
-			_startSpawnY = -this.transform.localScale.y + 1;
-			SpawnPlatform();
-		}
+		public float SpawnTower { get => _startSpawnY; set=>_startSpawnY=value; }
 
-		private void SpawnPlatform()
-		{
-			float spawn = _startSpawnY;
-			
-			for (int i = (int)spawn; i < _towerLenght; i++)
+		public void SpawnPlatform(int spawnY, int heightTower)
+		{	
+			for (int i = spawnY; i < heightTower; i++)
 			{
 				if(i%4 == 0)
 				{
@@ -47,5 +41,6 @@ namespace TowerDestroy
 				platform.transform.SetParent(transform);	
 			}
 		}
+
 	}
 }

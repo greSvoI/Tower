@@ -10,7 +10,8 @@ namespace TowerDestroy
 		private void OnTriggerEnter(Collider other)
 		{
 			EventManager.EventUpdateBall?.Invoke(ballData);
-			this.gameObject.SetActive(false);
+			this.gameObject.SetActive(false);	
+			Destroy(gameObject,1f);
 		}
 	}
 }

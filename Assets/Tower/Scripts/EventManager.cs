@@ -12,10 +12,10 @@ namespace TowerDestroy
 			if(instance == null)
 				instance = this;
 		}
-		public static Action EventDestroyPlatform { get; set; }
+		public static Action EventBlockPlatform { get; set; }
 		public static Action<Vector2> EventInput { get;set; }
 		public static Action<float> EventGameOver { get; set; }
-		public static Action<float> EventWinGame { get; set; }
+		public static Action EventWinGame { get; set; }
 		public static Action<BallData> EventUpdateBall { get; set; }
 
 	}
