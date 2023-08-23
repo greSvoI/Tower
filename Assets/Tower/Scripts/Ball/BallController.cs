@@ -70,7 +70,7 @@ namespace TowerDestroy
 			
 			if(ballData != ballStandart)
 			{
-				EventManager.EventUpdateX2Ball(true);
+				EventManager.EventUpdateX2Ball?.Invoke(true);
 
 				if (gameController.FactorBall != 1)
 					scoreUI.text = $"{ball.NameBall} X{gameController.FactorBall}";
@@ -133,7 +133,7 @@ namespace TowerDestroy
 
 			if(_timer <= 0)
 			{
-				EventManager.EventUpdateX2Ball(false);
+				EventManager.EventUpdateX2Ball?.Invoke(false);
 				scoreUI.text = "";
 				ballData = ballStandart;
 			}

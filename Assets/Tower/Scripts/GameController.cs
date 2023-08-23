@@ -1,12 +1,9 @@
 using System;
 using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
-using UnityEngine.Pool;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
-using static UnityEditor.Experimental.GraphView.GraphView;
 
 namespace TowerDestroy
 {
@@ -31,17 +28,15 @@ namespace TowerDestroy
 		[SerializeField] private TextMeshProUGUI bestScore_SG;
 		[SerializeField] private TextMeshProUGUI bestTime_SG;
 
-		[Space(2)]
-		
+		[Space(2)]		
 		[SerializeField] private GameObject buttonPressPlay;
 		[SerializeField] private GameObject buttonPressRestart;
 
 
-		[SerializeField] private GameObject GameUI;
-		[SerializeField] private GameObject MenuUI;
-
 		[Space(2)]
 		[Header("Game controller")]
+		[SerializeField] private GameObject GameUI;
+		[SerializeField] private GameObject MenuUI;
 		[SerializeField] private BallController ballController;
 		[SerializeField] private TowerController towerController;
 		[SerializeField] private TextMeshProUGUI currentScore;
@@ -114,12 +109,12 @@ namespace TowerDestroy
 		private void OnBlockPartDestroyed()
 		{
 			_currentScore += _partBlockPoints * _factorBall;
-			//Vibration();
+			Vibration();
 		}
 		private void OnPartDestroyed()
 		{
 			_currentScore += _partPoints * _factorBall;
-			//Vibration();
+			Vibration();
 		}
 		private void OnWinGame()
 		{
