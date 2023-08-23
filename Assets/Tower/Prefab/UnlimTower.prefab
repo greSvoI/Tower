@@ -113,10 +113,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aecd883ebafb0514dbcbe049c43fe3d9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  platformPrefab: {fileID: 3601721026891884991, guid: 71d4aff6c1746ac4d8eaf8ed1d68bce0,
+  platform: {fileID: 3601721026891884991, guid: 71d4aff6c1746ac4d8eaf8ed1d68bce0,
+    type: 3}
+  startPlatform: {fileID: 4003933796764023699, guid: a6526590e19da354f8a3ad0c9a7612f3,
+    type: 3}
+  finishPlatform: {fileID: 2373502597194582026, guid: 458fc7eb914fb0747909299793b0459e,
     type: 3}
   _startSpawnY: 0
   _towerLenght: 10
+  ball: {fileID: 0}
   ballDetections:
   - {fileID: 4226940557722924405, guid: e69ce4416e62ac846a88136794ef00a4, type: 3}
   - {fileID: 4524606793298049564, guid: 88f7c9adb4ede32489f5352ae815ed0f, type: 3}

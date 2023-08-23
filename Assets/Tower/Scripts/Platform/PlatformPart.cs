@@ -58,7 +58,7 @@ namespace TowerDestroy
 			
 			platform.SetActive(false);
 			destroyPlatform.SetActive(true);
-			EventManager.EventBlockPlatform?.Invoke();
+			EventManager.EventPartDestroyed?.Invoke();
 			destroyPlatform.GetComponentInChildren<ParticleSystem>().Emit(1);
 			foreach (GameObject item in destroyPlatforms)
 			{

@@ -35,10 +35,10 @@ namespace TowerDestroy
 
 
 
-		[SerializeField] private GameObject gameUI;
-		[SerializeField] private GameObject menuUI;
+		[SerializeField] private GameObject GameUI;
+		[SerializeField] private GameObject MenuUI;
 
-
+		[SerializeField] private TowerController towerController;
 
 		[SerializeField] private Slider musicVolume;
 
@@ -57,7 +57,7 @@ namespace TowerDestroy
 
 			EventManager.EventGameOver += OnGameOver;
 			EventManager.EventWinGame += OnWinGame;
-			EventManager.EventBlockPlatform += OnDestroyPlatform;
+			EventManager.EventPartDestroyed += OnDestroyPlatform;
 		}
 		private void LoadScore()
 		{
@@ -78,7 +78,15 @@ namespace TowerDestroy
 		}
 		private void OnWinGame()
 		{
+			GameUI.SetActive(false);
 			WinGame_WG.SetActive(true);
+			float time = towerController.TimeGame;
+			if (time < _bestTime)
+			{
+				PlayerPrefs.SetFloat("_bestTime", time);
+			}
+			bestResult_WG.text = _bestTime.ToString() + " sec";
+			currentResult_WG.text = time.ToString() + " sec";
 		}
 
 		//Android Vibration Trigger
@@ -94,8 +102,6 @@ namespace TowerDestroy
 		//
 		private void OnGameOver(float score)
 		{
-			//if (score < _bestScore)
-			//	PlayerPrefs.SetFloat("_highTime", score);
 			WinGame_WG.SetActive(true);
 		}
 
@@ -144,13 +150,13 @@ namespace TowerDestroy
 		public void PressButtonMenu() {
 
 			Time.timeScale = 0f;
-			gameUI.SetActive(false);
-			menuUI.SetActive(true);
+			GameUI.SetActive(false);
+			MenuUI.SetActive(true);
 		}
 		public void PressButtonResume()
 		{
-			gameUI.SetActive(true);
-			menuUI.SetActive(false);
+			GameUI.SetActive(true);
+			MenuUI.SetActive(false);
 			Time.timeScale = 1f;
 		}
 		public void PressButtonQuit()
@@ -161,7 +167,7 @@ namespace TowerDestroy
 		{
 			EventManager.EventGameOver -= OnGameOver;
 			EventManager.EventWinGame -= OnWinGame;
-			EventManager.EventBlockPlatform -= OnDestroyPlatform;
+			EventManager.EventPartDestroyed -= OnDestroyPlatform;
 		}
 
 	}

@@ -11,34 +11,73 @@ namespace TowerDestroy
 	{
 		public bool _isTower = true;
 
+
+		[Header("Tower prefab, parametrs")]
 		[SerializeField] private Tower towerOne;
 		[SerializeField] private Tower unlimTower;
-		[SerializeField] private BallController ball;
-		[SerializeField] private Slider slider;
 		[SerializeField] private Vector2 _direction;
-		[SerializeField] private float _rotationSpeed = 0.5f;
 		[SerializeField] private bool _unlimTower = false;
 		[SerializeField] private int _spawnTower = 0;
 		[SerializeField] private int _heightTower = 10;
 
-	 	[SerializeField] private GameObject lastTower;
-		[SerializeField] private GameObject nextTower;
+		[Space(2)]
+		[Header("Ball parametrs")]
+		[SerializeField] protected BallController ball;
+		[SerializeField] private float _minBallPosition;
+		
 
-		public bool IsTower { get => _isTower;set => _isTower = value;  }
+		[Space(2)]
+		[Header("Sensivity Menu, speed rotate tower")]
+		[SerializeField] private Slider slider;
+		[SerializeField] private float _rotationSpeed = 0.5f;
+
+		[Space(2)]
+		[Header("Counter time, platform part destroyed")]
+		[SerializeField] private float _timeGame = 0;
+		[SerializeField] private int _partDestroyed = 0;
+
+
+		/// <summary>
+		/// ???
+		protected bool IsTower { get => _isTower; set => _isTower = value;  }
+		/// </summary>
+		
+		public float TimeGame => _timeGame;
+		public int PartDestroyed => _partDestroyed;
 
 		private void Start()
 		{
 			//int tower = PlayerPrefs.GetInt("_isTower");
 			//IsTower = tower == 1 ? true : false;
-			IsTower = true;
-			if(IsTower)
-				lastTower = Instantiate(towerOne.gameObject, Vector3.zero, Quaternion.identity, transform);
+			IsTower = false;
+
+			GameObject nextTower;
+			if (IsTower)
+			{
+				nextTower = Instantiate(towerOne.gameObject, Vector3.zero, Quaternion.identity, transform);
+			}
 			else
-				lastTower = Instantiate(towerOne.gameObject, Vector3.zero, Quaternion.identity, transform);
+			{
+				nextTower = Instantiate(unlimTower.gameObject, Vector3.zero, Quaternion.identity, transform);
+			}
 
+			nextTower.GetComponent<Tower>().SpawnPlatform(-_heightTower, _heightTower, true);
+			_spawnTower += _heightTower;
 
-			lastTower.GetComponent<Tower>().SpawnPlatform(-9,_heightTower); 
 			EventManager.EventInput += OnEventInput;
+			EventManager.EventPartDestroyed += OnPartDestroyed;
+			EventManager.EventWinGame += OnWinGame;
+			
+		}
+
+		private void OnPartDestroyed()
+		{
+			_partDestroyed++;
+		}
+
+		private void OnWinGame()
+		{
+			_timeGame = (float)Math.Round(_timeGame, 2);			
 		}
 
 		private void OnEventInput(Vector2 vector)
@@ -48,6 +87,8 @@ namespace TowerDestroy
 
 		private void Update()
 		{
+			_timeGame += Time.deltaTime;
+
 			if (_direction != Vector2.zero)
 				transform.rotation = transform.rotation * Quaternion.Euler(0f, -_direction.x * _rotationSpeed, 0f);
 
@@ -58,16 +99,16 @@ namespace TowerDestroy
 					SpawnTower();
 					_spawnTower += _heightTower;
 				}
+
 			}
 
 		}
 
 		private void SpawnTower()
 		{
-			Debug.Log("SpawnTower");
-			nextTower = Instantiate(unlimTower.gameObject, new Vector3(0f,_spawnTower,0f), Quaternion.identity, transform);
-			nextTower.GetComponent<Tower>().SpawnPlatform(_spawnTower,_spawnTower + _heightTower);
+		    GameObject nextTower = Instantiate(unlimTower.gameObject, new Vector3(0f,_spawnTower,0f), Quaternion.identity, transform);
 
+			nextTower.GetComponent<Tower>().SpawnPlatform(_spawnTower ,_spawnTower + _heightTower, false);
 		}
 
 		private void OnDestroy()

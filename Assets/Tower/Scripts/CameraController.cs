@@ -26,7 +26,7 @@ namespace TowerDestroy
 			_cameraPosition = ball.position;
 			_minBallPosition = ball.position;
 
-			EventManager.EventBlockPlatform += OnBlockPlatform;
+			EventManager.EventPartDestroyed += OnBlockPlatform;
 		}
 
 		private void OnBlockPlatform()
@@ -78,7 +78,7 @@ namespace TowerDestroy
 
 		private void OnDestroy()
 		{
-			EventManager.EventBlockPlatform -= OnBlockPlatform;
+			EventManager.EventPartDestroyed -= OnBlockPlatform;
 		}
 
 	}
