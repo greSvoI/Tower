@@ -9,54 +9,61 @@ namespace TowerDestroy
 		[SerializeField] private Transform ballMinPosition;
 		[SerializeField] private Transform tower;
 
-		[Header("Camera Settings")]
+		[Header("Camera parametrs")]
 		[SerializeField] private Vector3 _directionOffset;
-		[SerializeField] private Vector3 _cameraPosition;
-		[SerializeField] private Vector3 _minBallPosition;
+		[SerializeField] private Transform _cameraPosition;
 		[SerializeField] private float _lerpValue;
 		[SerializeField] private float _lenght;
 
 		[Header("Camera shake force")]
-		[SerializeField] private float _duration;
-		[SerializeField] private float _magnitude;
+		[SerializeField] 
+		[Range(0,1)] private float _duration;
+		[SerializeField] 
+		[Range(0, 1)] private float _magnitude;
 
+
+		[Header("Ball parametrs")]
+		[SerializeField]
+		[Range(0,5)] private float _positionGameOver;
+		[SerializeField] private Vector3 _minBallPosition;
+		[SerializeField] private bool _isFell = false;
 
 		private void Start()
 		{
-			_cameraPosition = ball.position;
+			
 			_minBallPosition = ball.position;
 
-			EventManager.EventPartDestroyed += OnBlockPlatform;
+			EventManager.EventBlockPartDestroyed += OnBlockDestroyed;
 		}
 
-		private void OnBlockPlatform()
+		private void OnBlockDestroyed()
 		{
-			//StartCoroutine(Shake(_duration,_magnitude));
+			StartCoroutine(Shake(_duration, _magnitude));
 		}
 
-		void LateUpdate()
+
+		private void LateUpdate()
 		{
-			if(ball.position.y > _minBallPosition.y)
+			_cameraPosition.position = Vector3.Lerp(_cameraPosition.position, new Vector3(_minBallPosition.x, _minBallPosition.y, _minBallPosition.z) + _directionOffset, _lerpValue * Time.deltaTime);
+			BallPosition();
+		}
+		private void BallPosition()
+		{
+			if (ball.position.y > _minBallPosition.y)
 			{
 				_minBallPosition = ball.position;
+				_isFell = false;
+				return;
 			}
-			if(ball.position.y < _minBallPosition.y - 1)
+			if (ball.position.y < _minBallPosition.y - _positionGameOver)
 			{
+				EventManager.EventGameOver?.Invoke();
+			}
+			if (ball.position.y < _minBallPosition.y - 1 && !_isFell)
+			{
+				_isFell = true;
 				_minBallPosition = ball.position;
 			}
-			transform.position = Vector3.Lerp(transform.position, new Vector3(_minBallPosition.x, _minBallPosition.y, _minBallPosition.z) + _directionOffset, _lerpValue * Time.deltaTime);
-
-		}
-		private void TrackBall()
-		{
-			_cameraPosition = ball.position + _directionOffset;
-			transform.position = _cameraPosition;
-
-		}
-		private void SetCameraFollow()
-		{
-			transform.position = Vector3.Lerp(transform.position, new Vector3(ball.position.x, ball.position.y, ball.position.z) + _directionOffset, _lerpValue * Time.deltaTime);
-			
 		}
 		private IEnumerator Shake(float duration, float magnitude)
 		{
@@ -78,7 +85,7 @@ namespace TowerDestroy
 
 		private void OnDestroy()
 		{
-			EventManager.EventPartDestroyed -= OnBlockPlatform;
+			EventManager.EventBlockPartDestroyed -= OnBlockDestroyed;
 		}
 
 	}

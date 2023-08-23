@@ -11,32 +11,28 @@ namespace TowerDestroy
 		[SerializeField] private GameObject finishPlatform;
 
 		[Space(2)]
-		[Header("Spawn platform parametrs")]
-		[SerializeField] private float _startSpawnY= 0;
-		[SerializeField] private float _towerLenght;
-
-		[Space(2)]
 		[Header("Ball")]
 		[SerializeField] private BallController ball;
 		[SerializeField] private List<BallDetection> ballDetections;
+		[SerializeField] private float _towerLenght;
 
 		private void Start()
 		{
 			ball = FindFirstObjectByType<BallController>();
 		}
-		public float SpawnTower { get => _startSpawnY; set=>_startSpawnY=value; }
 		private void Update()
 		{
-			if(ball.transform.position.y > (transform.position.y + transform.localScale.y))
+			if(ball.transform.position.y > (transform.position.y + transform.localScale.y) + _towerLenght)
 			{
-				Debug.Log("Destroy");
-				Destroy(this.gameObject,1f);
+				Destroy(this.gameObject);
 			}
 		}
 
-		public void SpawnPlatform(int spawnY, int heightTower,bool isStart = false)
+		public void SpawnPlatform(int spawnY, int heightTower,bool isStart)
 		{	
 			
+			
+
 			if(isStart)
 			{
 				GameObject platform = Instantiate(startPlatform,new Vector3(0f,spawnY,0f),Quaternion.identity);
@@ -44,6 +40,8 @@ namespace TowerDestroy
 				platform.transform.SetParent(transform);
 				spawnY++;
 			}
+
+
 			for (int i = spawnY; i < heightTower; i++)
 			{
 				if(i%4 == 0)

@@ -38,12 +38,9 @@ namespace TowerDestroy
 		{
 			if(_health<=strenght)
 			{
-				platform.SetActive(false);
-				destroyPlatform.SetActive(true);
 				DestroyPlatform();
 				return;
 			}
-			
 			_health -= strenght;
 			platform.GetComponent<MeshRenderer>().enabled = false;
 			destroyPlatform.SetActive(true);
@@ -55,11 +52,11 @@ namespace TowerDestroy
 
 		public void DestroyPlatform()
 		{
-			
 			platform.SetActive(false);
 			destroyPlatform.SetActive(true);
-			EventManager.EventPartDestroyed?.Invoke();
+
 			destroyPlatform.GetComponentInChildren<ParticleSystem>().Emit(1);
+
 			foreach (GameObject item in destroyPlatforms)
 			{
 				if(item.TryGetComponent(out Rigidbody rb))
@@ -68,6 +65,7 @@ namespace TowerDestroy
 					rb.AddExplosionForce(_force, transform.position, _radius);
 				}
 			}
+			EventManager.EventPartDestroyed?.Invoke();
 		}
 	}
 }

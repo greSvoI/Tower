@@ -11,12 +11,10 @@ namespace TowerDestroy
 	{
 		public bool _isTower = true;
 
-
 		[Header("Tower prefab, parametrs")]
 		[SerializeField] private Tower towerOne;
 		[SerializeField] private Tower unlimTower;
 		[SerializeField] private Vector2 _direction;
-		[SerializeField] private bool _unlimTower = false;
 		[SerializeField] private int _spawnTower = 0;
 		[SerializeField] private int _heightTower = 10;
 
@@ -31,25 +29,18 @@ namespace TowerDestroy
 		[SerializeField] private Slider slider;
 		[SerializeField] private float _rotationSpeed = 0.5f;
 
-		[Space(2)]
-		[Header("Counter time, platform part destroyed")]
-		[SerializeField] private float _timeGame = 0;
-		[SerializeField] private int _partDestroyed = 0;
-
 
 		/// <summary>
 		/// ???
 		protected bool IsTower { get => _isTower; set => _isTower = value;  }
 		/// </summary>
-		
-		public float TimeGame => _timeGame;
-		public int PartDestroyed => _partDestroyed;
 
 		private void Start()
 		{
-			//int tower = PlayerPrefs.GetInt("_isTower");
-			//IsTower = tower == 1 ? true : false;
-			IsTower = false;
+			int tower = PlayerPrefs.GetInt("_isTower");
+
+			IsTower = tower == 1 ? true : false;
+			_minBallPosition = ball.transform.position.y;
 
 			GameObject nextTower;
 			if (IsTower)
@@ -65,20 +56,8 @@ namespace TowerDestroy
 			_spawnTower += _heightTower;
 
 			EventManager.EventInput += OnEventInput;
-			EventManager.EventPartDestroyed += OnPartDestroyed;
-			EventManager.EventWinGame += OnWinGame;
-			
 		}
 
-		private void OnPartDestroyed()
-		{
-			_partDestroyed++;
-		}
-
-		private void OnWinGame()
-		{
-			_timeGame = (float)Math.Round(_timeGame, 2);			
-		}
 
 		private void OnEventInput(Vector2 vector)
 		{
@@ -87,7 +66,6 @@ namespace TowerDestroy
 
 		private void Update()
 		{
-			_timeGame += Time.deltaTime;
 
 			if (_direction != Vector2.zero)
 				transform.rotation = transform.rotation * Quaternion.Euler(0f, -_direction.x * _rotationSpeed, 0f);
@@ -107,7 +85,6 @@ namespace TowerDestroy
 		private void SpawnTower()
 		{
 		    GameObject nextTower = Instantiate(unlimTower.gameObject, new Vector3(0f,_spawnTower,0f), Quaternion.identity, transform);
-
 			nextTower.GetComponent<Tower>().SpawnPlatform(_spawnTower ,_spawnTower + _heightTower, false);
 		}
 

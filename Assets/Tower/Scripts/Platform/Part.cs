@@ -7,35 +7,32 @@ namespace TowerDestroy
 {
 	public class Part : MonoBehaviour
 	{
-		private PlatformPart part;
+		private PlatformPart platform;
 		private bool _isNotDestroy = false;
+
+		[Header("SphereCast parametrs")]
+		[SerializeField] private float _sphereRadius = 0.2f;
+		[SerializeField] private float _heightDown = 0.5f;
+		[SerializeField] private float _maxDistance = 0.5f;
 		[SerializeField] private LayerMask mask;
 		private void Start()
 		{
-			part = GetComponentInParent<PlatformPart>();
+			platform = GetComponentInParent<PlatformPart>();
 		}
 		private void OnDrawGizmosSelected()
 		{
 			Gizmos.color = Color.red;
-			Gizmos.DrawSphere(transform.position + Vector3.down * 0.5f, 0.2f);
+			Gizmos.DrawSphere(transform.position + Vector3.down * _heightDown, _sphereRadius);
 		}
 		private void OnTriggerEnter(Collider other)
 		{
-			try
-			{
-				part.TriggerPart(other.GetComponent<BallController>().BallStrenght);
-			}
-			catch (System.Exception)
-			{
-
-				Debug.Log(GetComponentInParent<GameObject>().name);
-			}
+			platform.TriggerPart(other.GetComponent<BallController>().BallStrenght);
 		}
 
 		private void Update()
 		{
 
-			if (Physics.SphereCast(transform.position, 0.2f, Vector3.down * 0.5f, out RaycastHit hitInfo, 0.5f, mask))
+			if (Physics.SphereCast(transform.position, _sphereRadius, Vector3.down * _heightDown, out RaycastHit hitInfo, _maxDistance, mask))
 			{
 
 				if (hitInfo.collider != null)
@@ -43,7 +40,13 @@ namespace TowerDestroy
 					float strenght = hitInfo.collider.gameObject.GetComponent<BallController>().BallStrenght;
 
 					if(strenght >= 100 && !_isNotDestroy || strenght >= 200)
-						part.DestroyPlatform();
+					{
+						if(_isNotDestroy)
+						{
+							EventManager.EventBlockPartDestroyed?.Invoke();
+						}
+						platform.DestroyPlatform();
+					}	
 				}
 			}
 

@@ -12,13 +12,14 @@ namespace TowerDestroy
 		private AudioSource audioSource;
 		private Rigidbody rigidBody;
 
+		[SerializeField] private GameController gameController;
+
 		[Header("Ball Settings")]
 		[SerializeField] private BallData ballStandart;
 		[SerializeField] private BallData ballData;
 
 		[Space(2)]
 		[Header("Jummp Settings")]
-		[SerializeField] private float _force = 5f;
 		[SerializeField] private float _sphereRadius = 0.05f;
 		[SerializeField] private float _rayLenght = 0f;
 		[SerializeField] private LayerMask layer;
@@ -34,7 +35,16 @@ namespace TowerDestroy
 		[SerializeField] private AudioClip jumpAudio;
 		[SerializeField] private AudioClip destroyAudio;
 
+		[Space(2)]
+		[Header("UI Component")]
+		[SerializeField] private TextMeshProUGUI scoreUI;
+		[SerializeField] private TextMeshProUGUI timerUI;
+
+
 		public int BallStrenght { get => ballData.Strength; }
+
+		//No ideas
+		private float _timer = 0;
 
 		private void Start()
 		{
@@ -47,20 +57,6 @@ namespace TowerDestroy
 			EventManager.EventPartDestroyed += OnDestroyPlatform;
 		}
 
-		[ContextMenu("Super Ball")]
-		public void SuperBall()
-		{
-
-			meshRenderer.material = ballData.Material;
-			if (effectBall != null) { Destroy(effectBall); }
-			effectBall = Instantiate(ballData.Effect, transform);
-			effectBall.transform.localPosition = Vector3.zero;
-			foreach (var item in effectBall.GetComponentsInChildren<ParticleSystem>())
-			{
-				item.externalForces.AddInfluence(particalForceField);
-				item.Emit(1);
-			}
-		}
 		private void OnWinGame()
 		{
 			Time.timeScale = 0f;
@@ -71,19 +67,50 @@ namespace TowerDestroy
 		}
 		private void OnUpdateBall(BallData ball)
 		{
+			
+			if(ballData != ballStandart)
+			{
+				EventManager.EventUpdateX2Ball(true);
+
+				if (gameController.FactorBall != 1)
+					scoreUI.text = $"{ball.NameBall} X{gameController.FactorBall}";
+			}
+			else
+				scoreUI.text = ball.NameBall;
+				_timer = ball.Time;
+
 			ballData = ball;
+
 			meshRenderer.material = ballData.Material;
-			if(effectBall != null) { Destroy(effectBall); }
+
+			if(effectBall != null)
+			{ 
+				Destroy(effectBall); 
+			}
+
 			effectBall =  Instantiate(ball.Effect, transform);
 			effectBall.transform.localPosition = Vector3.zero;
+
 			foreach(var item in effectBall.GetComponentsInChildren<ParticleSystem>())
 			{
 				item.externalForces.AddInfluence(particalForceField);
 				item.Emit(1);
 			}
+			StopAllCoroutines();
 			StartCoroutine(UpdateBallTimer(ball.Time));
 		}
-		
+		private void Update()
+		{
+			if(_timer > 0)
+			{
+				_timer -= Time.deltaTime;
+				timerUI.text = Math.Round(_timer,2).ToString();
+			}
+			else
+			{
+				timerUI.text = "";
+			}
+		}
 		private void FixedUpdate()
 		{
 			if (Physics.CheckSphere(transform.position + Vector3.down * _sphereRadius, _rayLenght, layer))
@@ -99,9 +126,17 @@ namespace TowerDestroy
 		}
 		private IEnumerator UpdateBallTimer(float time)
 		{
+
 			yield return new WaitForSeconds(time);
+			
 			Destroy(effectBall, 1f);
-			ballData = ballStandart;
+
+			if(_timer <= 0)
+			{
+				EventManager.EventUpdateX2Ball(false);
+				scoreUI.text = "";
+				ballData = ballStandart;
+			}
 		}
 		private void OnDrawGizmosSelected()
 		{

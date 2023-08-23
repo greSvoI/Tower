@@ -15,5 +15,6 @@ MonoBehaviour:
   materialBall: {fileID: 2100000, guid: dd9f6c05ac7b21e4abd45bc51f3ce0af, type: 2}
   effect: {fileID: 4234872683173074680, guid: 75f3609c6c207fa409e3fdeee54383c9, type: 3}
   _strength: 100
-  _time: 3
+  _time: 8
   _force: 8
+  _nameBall: Fire Ball

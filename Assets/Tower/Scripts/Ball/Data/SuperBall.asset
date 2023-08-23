@@ -15,5 +15,6 @@ MonoBehaviour:
   materialBall: {fileID: 2100000, guid: 404f9faecac1f6d43b5fcefa89522ab1, type: 2}
   effect: {fileID: 997452824684825877, guid: 15839e7c11ce3474d97b36c49993585d, type: 3}
   _strength: 200
-  _time: 3
+  _time: 10
   _force: 10
+  _nameBall: Super Ball

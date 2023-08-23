@@ -9,6 +9,7 @@ namespace TowerDestroy
 	{
 		public Material Material { get;  }
 		public GameObject Effect { get; }
+		public string NameBall { get; }
 		public int Strength { get; }
 		public float Time { get;  }
 		public float Force { get;  }

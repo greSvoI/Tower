@@ -58,12 +58,10 @@ MonoBehaviour:
     type: 3}
   unlimTower: {fileID: 1375450890861470615, guid: 1ab4da8e53bd1ae419b01123e9418abd,
     type: 3}
-  ball: {fileID: 0}
-  slider: {fileID: 0}
   _direction: {x: 0, y: 0}
-  _rotationSpeed: 1
-  _unlimTower: 0
   _spawnTower: 0
   _heightTower: 10
-  lastTower: {fileID: 0}
-  nextTower: {fileID: 0}
+  ball: {fileID: 0}
+  _minBallPosition: 0
+  slider: {fileID: 0}
+  _rotationSpeed: 1
